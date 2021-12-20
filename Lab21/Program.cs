@@ -10,7 +10,6 @@ namespace Lab21
     class Program
     {
         private static int[,] garden = new int[10, 10];
-        static object locker = new object();
 
         private static void Main(string[] args)
         {            
@@ -20,7 +19,7 @@ namespace Lab21
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    garden[i,j]= 0;
+                    garden[i,j]= 0;                    
                 }
             }
 
@@ -29,7 +28,7 @@ namespace Lab21
             thread.Start();
             Gardener1();
 
-            Console.ReadKey(); //ждем пока садовники отработают
+            //Console.ReadKey(); //ждем пока садовники отработают
 
             for (int i = 0; i < 10; i++) //для проверки результата
             {
@@ -50,26 +49,25 @@ namespace Lab21
                 {
                     if (garden[i,j] == 0)
                     garden[i, j] = 1;
-                    Console.Write("{0,5}", garden[i, j]);
+                    Thread.Sleep(1);
+                    //Console.Write("{0,5}", garden[i, j]);
                 }
-                Console.WriteLine();
+                //Console.WriteLine();
             }
         }
         private static void Gardener2()
         {
-            lock (locker)
-            {
                 for (int j = 9; j > -1; j--)
                 {
                     for (int i = 9; i > -1; i--)
                     {
                         if (garden[i, j] == 0)
                             garden[i, j] = 2;
-                        Console.Write("{0,5}", garden[i, j]);                        
+                        Thread.Sleep(1);
+                        //Console.Write("{0,5}", garden[i, j]);                        
                     }
-                    Console.WriteLine();
-                }
-            }            
+                    //Console.WriteLine();
+                }                     
         }
     }
 }
